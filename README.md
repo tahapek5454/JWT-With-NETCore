@@ -41,3 +41,10 @@
 
 **Note:** In decoding, the token's signature, lifespan, and the server it was generated from are important.
 
+## Identity
+- Microsoft Identity, a ready-to-use library for performing identity operations, is utilized in the project.
+- Major services included in the library:
+  - UserManager: For user-related operations.
+  - SignInManager: For login processes.
+  - RoleManager: For managing user roles.
+
