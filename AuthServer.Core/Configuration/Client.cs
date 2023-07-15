@@ -14,7 +14,7 @@ namespace AuthServer.Core.Configuration
         public string Secret { get; set; }
 
         // detecting which server the client can access 
-        //  no sub no identity for ex www.myapi3.com
+        //  no sub for ex www.myapi3.com
         public List<string> Audiences { get; set; }
     }
 }
