@@ -28,7 +28,7 @@ namespace AuthServer.Data.Repositories
         public IQueryable<T> GetAllAsync()
             => Table.AsQueryable();
 
-        public async Task<T?> GetByIdAsync(int id)
+        public async Task<T> GetByIdAsync(int id)
             => await Table.FindAsync(id);
 
 
