@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 
 namespace AuthServer.Core.Services
 {
-    public interface IGenericService<TEntiy, TDto>
+    public interface IGenericService< TDto>
         where TDto : class
-        where TEntiy: class
     {
         Task<ResponseDto<TDto>> GetByIdAsync(int id);
         Task<ResponseDto<List<TDto>>> GetAllAsync();
-        Task<ResponseDto<TDto>> AddAsync(TEntiy entiy);
-        ResponseDto<TDto> Remove(TEntiy entiy);
-        ResponseDto<TDto> Update(TEntiy entiy);
+        Task<ResponseDto<TDto>> AddAsync(TDto entiy);
+        ResponseDto<TDto> Remove(TDto entiy);
+        ResponseDto<TDto> Update(TDto entiy);
     }
 }
