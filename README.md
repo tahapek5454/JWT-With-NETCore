@@ -48,3 +48,15 @@
   - SignInManager: For login processes.
   - RoleManager: For managing user roles.
 
+## Sign
+- Asymmetric signing is used for signing processes nowadays.
+- It involves both a Private key and a Public key.
+- The Authentication server signs with the private key, while APIs verify with the public key.
+
+## Options Pattern - Token Options
+- Audience: Determines which APIs the token can request.
+- Issuer: Specifies who issued the token. The service that distributes the token.
+- AccessTokenExpiration: The lifespan of the Access Token.
+- RefreshTokenExpiration: The lifespan of the Refresh Token.
+- SecurityKey: The symmetric key used for token signing.
+
