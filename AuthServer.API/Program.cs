@@ -1,4 +1,6 @@
 using AuthServer.Data;
+using Microsoft.Extensions.DependencyInjection;
+using SharedLibrary.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDataService(builder.Configuration);
+
+//binding CustomTokenOptions class with TokenOption from appSetting.Json (options pattern)
+builder.Services.Configure<CustomTokenOptions>(builder.Configuration.GetSection("TokenOptions"));
 
 var app = builder.Build();
 
