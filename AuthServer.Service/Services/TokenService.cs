@@ -63,7 +63,34 @@ namespace AuthServer.Service.Services
 
         public ClientTokenDto CreateTokenByClient(Client client)
         {
-            throw new NotImplementedException();
+            // perapare token option from configuration
+            var accessTokenExpiration = DateTime.UtcNow.AddMinutes(_customTokenOptions.AccessTokenExpiration);
+            var securityKey = SignService.GetSymmetricSecurityKey(_customTokenOptions.SecurityKey);
+
+            // get signging algorithm for token with our keys
+            SigningCredentials signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
+
+            // create token operations
+            JwtSecurityToken jwtSecurityToken = new JwtSecurityToken
+                (issuer: _customTokenOptions.Issuer,
+                expires: accessTokenExpiration,
+                notBefore: DateTime.UtcNow,
+                signingCredentials: signingCredentials,
+                claims: GetClaimsByClient(client));
+
+            var handler = new JwtSecurityTokenHandler();
+            var token = handler.WriteToken(jwtSecurityToken);
+
+            // we convert to custom dto for open the outside
+            var clientTokenDto = new ClientTokenDto()
+            {
+                AccessToken = token,
+                AccessTokenExpiration = accessTokenExpiration,
+            };
+
+            // doesnt exist refresh token
+            return clientTokenDto;
+
         }
 
         private string CreateRefreshToken()
