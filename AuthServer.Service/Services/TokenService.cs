@@ -74,5 +74,20 @@ namespace AuthServer.Service.Services
         
             return userClaimList;
         }
+
+        private IEnumerable<Claim> GetClaimsByClient(Client client)
+        {
+            // this for clients
+            var claims = new List<Claim>()
+            {
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Sub, client.Id), // subject for who ? client
+
+            };
+            claims.AddRange(client.Audiences.Select(x => new Claim(JwtRegisteredClaimNames.Aud, x)));
+            // which api client can request
+
+            return claims;
+        }
     }
 }
