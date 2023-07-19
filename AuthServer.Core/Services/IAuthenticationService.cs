@@ -17,6 +17,6 @@ namespace AuthServer.Core.Services
         Task<ResponseDto<TokenDto>> RevokeRefreshToken(string refreshToken);
 
         // not for subscribe process just let for access specific clients
-        Task<ResponseDto<ClientTokenDto>> CreateTokenByClient(ClientLoginDto clientLoginDto);
+        ResponseDto<ClientTokenDto> CreateTokenByClient(ClientLoginDto clientLoginDto);
     }
 }

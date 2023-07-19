@@ -15,7 +15,7 @@ builder.Services.AddDataService(builder.Configuration);
 
 //binding CustomTokenOptions class with TokenOption from appSetting.Json (options pattern)
 builder.Services.Configure<CustomTokenOptions>(builder.Configuration.GetSection("TokenOptions"));
-builder.Services.Configure<Client>(builder.Configuration.GetSection("Clients"));
+builder.Services.Configure<List<Client>>(builder.Configuration.GetSection("Clients"));
 
 var app = builder.Build();
 
