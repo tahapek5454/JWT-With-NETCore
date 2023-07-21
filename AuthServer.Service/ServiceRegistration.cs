@@ -19,7 +19,7 @@ namespace AuthServer.Service
             serviceCollection.AddScoped<IAuthenticationService, AuthenticationService>();
             serviceCollection.AddScoped<IUserService, UserService>();
             serviceCollection.AddScoped<ITokenService, TokenService>();
-            serviceCollection.AddScoped(typeof(IGenericService<>), typeof(GenericService<,>));
+            serviceCollection.AddScoped(typeof(IGenericService<,>), typeof(GenericService<,>));
             serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }

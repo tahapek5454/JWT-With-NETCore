@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace AuthServer.Service.Services
 {
-    public class GenericService<TEntiy,TDto> : IGenericService<TDto> where TDto : class where TEntiy : class
+    public class GenericService<TEntiy,TDto> : IGenericService<TEntiy,TDto> where TDto : class where TEntiy : class
     {
         private readonly IUnitOfWork _unitOfWorkunitOfWork;
         private readonly IGenericRepository<TEntiy> _genericRepository;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AuthServer.Core.Services
 {
-    public interface IGenericService< TDto>
+    public interface IGenericService<Tentiy, TDto>
         where TDto : class
     {
         Task<ResponseDto<TDto>> GetByIdAsync(int id);
