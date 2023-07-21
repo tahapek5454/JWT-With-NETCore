@@ -1,5 +1,7 @@
 ﻿using AuthServer.Core.Models;
+using AuthServer.Core.Repositories;
 using AuthServer.Data.Context;
+using AuthServer.Data.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -20,12 +22,15 @@ namespace AuthServer.Data
 
             serviceCollection.AddIdentity<UserApp, IdentityRole<int>>(options =>
             {
+                options.User.RequireUniqueEmail= true;
                 options.Password.RequiredLength = 3;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
             }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+            //TokenProvider for reset password operations
+            serviceCollection.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
         }
     }
