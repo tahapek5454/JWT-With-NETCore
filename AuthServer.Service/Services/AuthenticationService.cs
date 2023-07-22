@@ -86,6 +86,8 @@ namespace AuthServer.Service.Services
 
             if (existReFreshToken == null) return ResponseDto<TokenDto>.Fail("RefreshToken Not Found", true, 404);
 
+            if(DateTime.UtcNow > existReFreshToken.Expiration) return ResponseDto<TokenDto>.Fail("RefreshToken time out", true, 404);
+
             var user = await _userManager.FindByIdAsync(existReFreshToken.UserId.ToString());
             if (user == null) throw new Exception("Data Binding Error Check AuthenditcationService relation userId -> refreshToken");
 
