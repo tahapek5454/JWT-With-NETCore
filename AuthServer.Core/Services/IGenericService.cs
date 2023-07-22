@@ -11,9 +11,9 @@ namespace AuthServer.Core.Services
         where TDto : class
     {
         Task<ResponseDto<TDto>> GetByIdAsync(int id);
-        ResponseDto<List<TDto>> GetAllAsync();
+        ResponseDto<List<TDto>> GetAll();
         Task<ResponseDto<TDto>> AddAsync(TDto entiy);
-        Task<ResponseDto<TDto>> Remove(int id);
+        Task<ResponseDto<TDto>> RemoveAsync(int id);
         ResponseDto<TDto> Update(TDto entiy);
     }
 }

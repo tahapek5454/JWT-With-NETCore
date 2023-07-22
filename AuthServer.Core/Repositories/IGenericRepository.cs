@@ -13,7 +13,7 @@ namespace AuthServer.Core.Repositories
     {
         DbSet<T> Table { get; }
         Task<T> GetByIdAsync(int id);
-        IQueryable<T> GetAllAsync();
+        IQueryable<T> GetAll();
         IQueryable<T> Where(Expression<Func<T, bool>> predicate);
         Task AddAsync(T entity);
         void Remove(T entity);

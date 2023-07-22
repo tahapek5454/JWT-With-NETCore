@@ -22,7 +22,7 @@ namespace AuthServer.API.Controllers
         [HttpGet]
         public IActionResult GetProducts()
         {
-            var result = _genericService.GetAllAsync();
+            var result = _genericService.GetAll();
             return ActionResultInstance(result);
         }
 
@@ -40,10 +40,10 @@ namespace AuthServer.API.Controllers
             return ActionResultInstance(result);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteProductAsync(int id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProductAsync([FromRoute]int id)
         {
-            var result = await _genericService.Remove(id);
+            var result = await _genericService.RemoveAsync(id);
             return ActionResultInstance(result);
         }
 

@@ -25,7 +25,7 @@ namespace AuthServer.Data.Repositories
         public async Task AddAsync(T entity)
             => await Table.AddAsync(entity);
 
-        public IQueryable<T> GetAllAsync()
+        public IQueryable<T> GetAll()
             => Table.AsQueryable();
 
         public async Task<T> GetByIdAsync(int id)
@@ -37,7 +37,7 @@ namespace AuthServer.Data.Repositories
 
         public T Update(T entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
+            Table.Update(entity);
             return entity;
         }
 

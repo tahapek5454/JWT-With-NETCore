@@ -37,9 +37,9 @@ namespace AuthServer.Service.Services
             
         }
 
-        public  ResponseDto<List<TDto>> GetAllAsync()
+        public  ResponseDto<List<TDto>> GetAll()
         {
-            List<TDto> dtos = ObjectMapper.Mapper.Map<List<TDto>>(_genericRepository.GetAllAsync().ToList());
+            List<TDto> dtos = ObjectMapper.Mapper.Map<List<TDto>>(_genericRepository.GetAll().ToList());
 
             return ResponseDto<List<TDto>>.Sucess(dtos, 200);
         }
@@ -55,7 +55,7 @@ namespace AuthServer.Service.Services
             return ResponseDto<TDto>.Sucess(dto, 200);
         }
 
-        public async Task<ResponseDto<TDto>> Remove(int id)
+        public async Task<ResponseDto<TDto>> RemoveAsync(int id)
         {
             TEntiy entiy = await _genericRepository.GetByIdAsync(id);
 
