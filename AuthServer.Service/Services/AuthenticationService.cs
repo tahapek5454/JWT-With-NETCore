@@ -51,7 +51,7 @@ namespace AuthServer.Service.Services
 
             if(userRefreshToken== null)
             {
-                await _userRefreshRespository.AddAsync(new UserRefreshToken { UserId = userRefreshToken.UserId, Code= token.RefreshToken, Expiration = token.RefreshTokenExpiration });
+                await _userRefreshRespository.AddAsync(new UserRefreshToken { UserId = user.Id, Code= token.RefreshToken, Expiration = token.RefreshTokenExpiration });
             }
             else
             {
