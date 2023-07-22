@@ -17,6 +17,12 @@
   - key-value pairs (e.g., sub for user ID).
 - Signature: Where the signing information is entered (encryption).
 
+**Note:** The Payload and Header sections are encoded with base64Url, making it accessible to anyone (**passwords should not be added to the payload**). However, without the signature, no changes can be made to the token. If any changes are attempted, the token will be considered invalid.
+
+**Note:** So, even if you obtain the token, you cannot manipulate it to access someone else's data. To enable changes to the token, knowledge of the security password used during signing is required.
+
+**Note:** To protect the user's information when obtaining the token, we set the token's lifespan to be short.
+
 ### Security
 - Token expiration plays an important role in security.
 - Decodable sensitive data, such as important passwords, should not be carried in the payload.
