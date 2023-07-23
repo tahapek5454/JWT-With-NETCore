@@ -1,18 +1,32 @@
 using AuthServer.Core.Configuration;
 using AuthServer.Data;
 using AuthServer.Service;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using SharedLibrary.Configurations;
 using SharedLibrary.Extensions;
 using SharedLibrary.Services;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddControllers().AddFluentValidation(options =>
+{
+    // Validate child properties and root collection elements
+    options.ImplicitlyValidateChildProperties = true;
+    options.ImplicitlyValidateRootCollectionElements = true;
 
-builder.Services.AddControllers();
+    // Automatic registration of validators in assembly
+    options.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+});
+// overrite InvalidModelStateResponse
+builder.Services.AddCustomValidationResponseService();
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
