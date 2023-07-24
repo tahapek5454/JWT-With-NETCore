@@ -30,7 +30,7 @@ namespace AuthServer.Service.Services
      
         }
 
-        public TokenDto CreateToken(UserApp userApp)
+        public async Task<TokenDto> CreateToken(UserApp userApp)
         {
             // perapare token option from configuration
             var accessTokenExpiration = DateTime.UtcNow.AddMinutes(_customTokenOptions.AccessTokenExpiration);
@@ -45,7 +45,7 @@ namespace AuthServer.Service.Services
                 expires: accessTokenExpiration,
                 notBefore: DateTime.UtcNow,
                 signingCredentials: signingCredentials,
-                claims: GetClaims(userApp, _customTokenOptions.Audiences));
+                claims: await GetClaims(userApp, _customTokenOptions.Audiences));
 
             var handler = new JwtSecurityTokenHandler();
             var token = handler.WriteToken(jwtSecurityToken);
@@ -107,7 +107,7 @@ namespace AuthServer.Service.Services
 
         }
 
-        private IEnumerable<Claim> GetClaims(UserApp userApp, List<string> audiences) 
+        private async Task<IEnumerable<Claim>> GetClaims(UserApp userApp, List<string> audiences) 
         {
             // token's payload is claims
 
@@ -127,6 +127,12 @@ namespace AuthServer.Service.Services
 
             userClaimList.AddRange(audiences.Select(x => new Claim(JwtRegisteredClaimNames.Aud, x)));
             // we apply to format to arch can find Audiencess 
+
+
+            // now we get user roles and add to claims
+            var userRoles = await _userManager.GetRolesAsync(userApp);
+            userClaimList.AddRange(userRoles.Select(r => new Claim(ClaimTypes.Role, r)));
+            
         
             return userClaimList;
         }

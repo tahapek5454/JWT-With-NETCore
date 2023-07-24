@@ -45,7 +45,7 @@ namespace AuthServer.Service.Services
             if(! await _userManager.CheckPasswordAsync(user, loginDto.Password))
                 return ResponseDto<TokenDto>.Fail("Email or Password is wrong", true, 400);
 
-            var token = _tokenService.CreateToken(user);
+            var token = await _tokenService.CreateToken(user);
 
             var userRefreshToken = await _userRefreshRespository.Where(rt => rt.UserId == user.Id).FirstOrDefaultAsync();
 
@@ -91,7 +91,7 @@ namespace AuthServer.Service.Services
             var user = await _userManager.FindByIdAsync(existReFreshToken.UserId.ToString());
             if (user == null) throw new Exception("Data Binding Error Check AuthenditcationService relation userId -> refreshToken");
 
-            var token = _tokenService.CreateToken(user);
+            var token =await _tokenService.CreateToken(user);
 
             existReFreshToken.Code = token.RefreshToken;
             existReFreshToken.Expiration = token.RefreshTokenExpiration;

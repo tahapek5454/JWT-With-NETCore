@@ -3,6 +3,7 @@ using AuthServer.Core.Models;
 using AuthServer.Core.Services;
 using Microsoft.AspNetCore.Identity;
 using SharedLibrary.DTOs;
+using SharedLibrary.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,12 @@ namespace AuthServer.Service.Services
     public class UserService : IUserService
     {
         private readonly UserManager<UserApp> _userManager;
+        private readonly RoleManager<IdentityRole<int>> _roleManager;
 
-        public UserService(UserManager<UserApp> userManager)
+        public UserService(UserManager<UserApp> userManager, RoleManager<IdentityRole<int>> roleManager)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public async Task<ResponseDto<UserAppDto>> CreateUserAsync(CreateUserDto createUserDto)
@@ -38,6 +41,25 @@ namespace AuthServer.Service.Services
             }
 
             return ResponseDto<UserAppDto>.Sucess(ObjectMapper.Mapper.Map<UserAppDto>(user), 200);
+        }
+
+        public async Task<ResponseDto<UserAppDto>> CreateUserRolesAsync(string userName)
+        {
+            // just example
+            if(! await _roleManager.RoleExistsAsync("Admin"))
+            {
+                await _roleManager.CreateAsync(new() { Name = "admin" });
+                await _roleManager.CreateAsync(new() { Name = "manager" });
+            }
+
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user == null) throw new CustomException("User not found");
+            
+            await _userManager.AddToRoleAsync(user, "admin");
+            await _userManager.AddToRoleAsync(user, "manager");
+
+            return ResponseDto<UserAppDto>.Sucess(201);
+            
         }
 
         public async Task<ResponseDto<UserAppDto>> GetUserByUserName(string userName)
