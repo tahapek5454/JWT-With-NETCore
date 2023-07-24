@@ -15,6 +15,17 @@ var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<CustomTo
 
 builder.Services.AddCustomTokenAuth(tokenOptions);
 
+// if you want use claim based authorization. You must write your policy
+builder.Services.AddAuthorization(options =>
+{
+    // for example we added custom claim type was named city. Not fit arch not a role
+    // so we added own policy and we define the city claim
+    options.AddPolicy("SakaryaPolicy", policy =>
+    {
+        policy.RequireClaim("city", "Sakarya");
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

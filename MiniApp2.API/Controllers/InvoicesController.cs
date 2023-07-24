@@ -10,7 +10,8 @@ namespace MiniApp2.API.Controllers
     public class InvoicesController : ControllerBase
     {
         [HttpGet]
-        [Authorize(Roles ="admin")]
+        [Authorize(Roles ="admin", Policy = "SakaryaPolicy")] // we can use easily if roles fit with identity arch
+        // what if we want write our dynamic claim based auth operation ? we must write policy. look program.cs
         public IActionResult GetInvoice()
         {
             // you can access username, id , email etc. from jwt claims with Identity rules

@@ -120,7 +120,8 @@ namespace AuthServer.Service.Services
                 new Claim(ClaimTypes.NameIdentifier, userApp.Id.ToString()),
                 new Claim(ClaimTypes.Email, userApp.Email),
                 new Claim(ClaimTypes.Name, userApp.UserName),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim("city", userApp.City) // we dont have const arch type so we wrote manuel
             };
             // the last one for like a pk
             // this claims about user, after created jwt they added to payload
