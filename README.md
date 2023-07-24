@@ -66,3 +66,12 @@
 - RefreshTokenExpiration: The lifespan of the Refresh Token.
 - SecurityKey: The symmetric key used for token signing.
 
+## Authorization
++ Role Based Authorization
+  + Static type of authorization.
+  + Defined and stored based on static values such as Admin, Customer, Manager, etc.
+  + Can be captured in the token architecture when stored as [Authorize(Role="Admin")].
++ Claim Based Authorization
+  + Dynamic type of authorization.
+  + Consists of key-value pairs holding information about the user. Information can change.
+  + For example, it could be age.
