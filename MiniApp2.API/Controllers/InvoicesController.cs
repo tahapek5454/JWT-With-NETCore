@@ -10,7 +10,7 @@ namespace MiniApp2.API.Controllers
     public class InvoicesController : ControllerBase
     {
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles ="admin")]
         public IActionResult GetInvoice()
         {
             // you can access username, id , email etc. from jwt claims with Identity rules
