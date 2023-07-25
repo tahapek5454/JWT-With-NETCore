@@ -11,7 +11,7 @@ namespace MiniApp1.API.Controllers
     {
 
         [HttpGet]
-        [Authorize(Roles ="customer")]
+        [Authorize(Roles ="admin", Policy = "AgePolicy")]
         public IActionResult GetStock()
         {
             // you can access username, id , email etc. from jwt claims with Identity rules

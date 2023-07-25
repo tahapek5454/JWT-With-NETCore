@@ -10,6 +10,7 @@ namespace AuthServer.Core.Models
     public class UserApp: IdentityUser<int>
     {
         public string? City { get; set; }
+        public DateTime? BirthDate { get; set; }
         public UserRefreshToken UserRefreshToken { get; set; }
 
     }
